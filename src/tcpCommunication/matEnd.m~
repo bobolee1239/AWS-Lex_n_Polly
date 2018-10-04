@@ -1,0 +1,14 @@
+% matEnd.m for TCP Communication
+
+server_name = 'localhost';
+portNum = 10000;
+
+t = tcpip(server_name, portNum);
+fprintf("connecting to %s portNum %s", server_name, protNum);
+%t.InputBufferSize = 16;
+
+fopen(t);
+
+msg = 'This t';
+
+fprintf(t, "");

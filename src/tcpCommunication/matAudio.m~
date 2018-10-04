@@ -1,0 +1,41 @@
+%% ---------------- Send audio -------------------
+close all; clear all; clc;
+
+REQUEST = 'Request.wav';
+[requestAudio, fs] = audioread(REQUEST);
+
+% Transform double 2 signed int16 as byte;
+%   * 1. represent as int 
+%   * 2. little-endian order
+
+requestAudio = cast(requestAudio .* (2^15), 'int16');
+
+% connect to tcp/ip server
+server_ip = 'localhost';
+portNum = 10000;
+
+% create tcp/ip obj 
+t = tcpip(server_ip, portNum);
+t.OutputBufferSize = 512;
+t.ByteOrder = 'littleEndian';
+
+numPush = cast(length(requestAudio)/t.OutputBufferSize*2, 'int32') + 1;
+
+
+fopen(t);
+if strcmp(t.Status, 'open')
+    
+    % transport data
+    for i=1:1:numPush
+        if i==numPush
+            fwrite(t, requestAudio((i-1)*256+1:i*256, 1), 'int16');
+        else
+            fwrite(t, requestAudio((i-1)*256+1:i*256, 1), 'int16');
+        end
+    end
+else
+    fprintf('Connection failed!')
+end
+
+
+fclose(t);
