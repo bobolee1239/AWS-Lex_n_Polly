@@ -5,7 +5,7 @@ server_ip = 'localhost';
 portNum = 10000;
 
 % create tcp/ip obj 
-t = tcpip(server_ip, portNum);
+t = tcpi p(server_ip, portNum);
 t.OutputBufferSize = 512;
 t.ByteOrder = 'littleEndian';
 fprintf('Connecting to server ...\n')

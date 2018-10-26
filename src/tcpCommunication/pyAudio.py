@@ -12,7 +12,7 @@ import numpy as np
 import sounddevice as sd
 import boto3
 
-server_address = ('localhost', 10000)
+server_address = ('140.114.57.83', 10000)
 chunk_size = 512    # Byte
 fs = 8*1e3          # Hz, sampling rate
 toPlay = True       # for the sake of Debug
